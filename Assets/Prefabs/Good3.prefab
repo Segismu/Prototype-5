@@ -130,5 +130,7 @@ MonoBehaviour:
   minSpeed: 10
   maxSpeed: 12
   torqueValue: 10
-  xRange: 5
+  xRange: 4.5
   yRange: 2
+  pointValue: 10
+  explosionParticle: {fileID: 2478549635105912040, guid: ec46c8c4a3cbc429382ee48bd9169b45, type: 3}

@@ -352,6 +352,8 @@ MonoBehaviour:
   - {fileID: 3642392395291693512, guid: b0421f23f1e3846b4b324e9958701d7d, type: 3}
   - {fileID: 9179136898813609480, guid: 83f908914e07e43929f95a10457d30ef, type: 3}
   - {fileID: 1765484612707062753, guid: 1a778307a533f47bc87dc79de1cc7d2e, type: 3}
+  scoreText: {fileID: 869600860}
+  score: 0
   spawnRate: 1
 --- !u!4 &516696891
 Transform:
