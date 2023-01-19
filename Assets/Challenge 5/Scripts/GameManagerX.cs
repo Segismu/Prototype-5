@@ -31,11 +31,16 @@ public class GameManagerX : MonoBehaviour
     {
         spawnRate /= difficulty;
         isGameActive = true;
+        timerOn = true;
         StartCoroutine(SpawnTarget());
         score = 0;
         UpdateScore(0);
         titleScreen.SetActive(false);
-        timerOn = true;
+
+    }
+
+    void Update()
+    {
         Timer();
     }
 
