@@ -15,22 +15,28 @@ public class GameManagerX : MonoBehaviour
     public List<GameObject> targetPrefabs;
 
     private int score;
-    private float spawnRate = 1.5f;
+    private float spawnRate = 1f;
     public bool isGameActive;
+    public float timeLeft;
+    public bool timerOn = false;
+
+    public TextMeshProUGUI timerText;
 
     private float spaceBetweenSquares = 2.5f; 
     private float minValueX = -3.75f; //  x value of the center of the left-most square
     private float minValueY = -3.75f; //  y value of the center of the bottom-most square
     
     // Start the game, remove title screen, reset score, and adjust spawnRate based on difficulty button clicked
-    public void StartGame()
+    public void StartGame(int difficulty)
     {
-        spawnRate /= 5;
+        spawnRate /= difficulty;
         isGameActive = true;
         StartCoroutine(SpawnTarget());
         score = 0;
         UpdateScore(0);
         titleScreen.SetActive(false);
+        timerOn = true;
+        Timer();
     }
 
     // While game is active spawn a random target
@@ -70,15 +76,16 @@ public class GameManagerX : MonoBehaviour
     public void UpdateScore(int scoreToAdd)
     {
         score += scoreToAdd;
-        scoreText.text = "score";
+        scoreText.text = "score: " + score;
     }
 
     // Stop game, bring up game over text and restart button
     public void GameOver()
     {
         gameOverText.gameObject.SetActive(true);
-        restartButton.gameObject.SetActive(false);
+        restartButton.gameObject.SetActive(true);
         isGameActive = false;
+        timerOn = false;
     }
 
     // Restart game by reloading the scene
@@ -87,4 +94,30 @@ public class GameManagerX : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    void Timer()
+    {
+        if(timerOn)
+        {
+            if(timeLeft > 0)
+            {
+                timeLeft -= Time.deltaTime;
+                updateTimer(timeLeft);
+            }
+            else
+            {
+                GameOver();
+                timeLeft = 0;
+                timerOn = false;
+            }
+        }    
+    }
+
+    void updateTimer(float currentTime)
+    {
+        currentTime += 1;
+        float minutes = Mathf.FloorToInt(currentTime / 60);
+        float seconds = Mathf.FloorToInt(currentTime % 60);
+
+        timerText.text = string.Format("{0:00} : {1:00}", minutes, seconds);
+    }    
 }
